@@ -1,22 +1,26 @@
-import { useState } from 'react';
-import ClassComponent from './components/ClassComponent';
-import FuncComponent from './components/FuncComponent';
+import { Switch, Route, Link } from 'react-router-dom';
+import HomePage from './pages/Home';
+import AboutPage from './pages/About';
 
 function App() {
-  const [isVisible, setIsVisible] = useState(true);
-
-  const x = 1;
-
+ 
   return (
-    <div className='App'>
-      <p>Components is currently {isVisible ? 'visible' : 'hidden'}</p>
-      {isVisible && (
-        <ClassComponent test='test prop' test2={isVisible ? x : -x} isOn />
-      )}
-      {isVisible && (
-        <FuncComponent test='test prop' test2={isVisible ? x : -x} isOn />
-      )}
-    </div>
+    <>
+      <header>
+        <ul>
+          <li>
+            <Link to='/'>Home</Link>
+          </li>
+          <li>
+            <Link to='/about'>About</Link>
+          </li>
+        </ul>
+      </header>
+      <Switch>
+        <Route exact path='/' component={HomePage}/>
+        <Route path='/about' component={AboutPage}/>
+      </Switch>
+    </>
   );
 }
 
