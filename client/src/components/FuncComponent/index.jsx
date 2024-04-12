@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import styles from './FuncComponent.module.scss';
 
 function FuncComponent(props) {
   // props.test = 1000;
@@ -8,7 +9,6 @@ function FuncComponent(props) {
 
   useEffect(() => {
     console.log(`Clicks is : ${clicks}`);
-    
   }, [clicks]);
 
   useEffect(() => {
@@ -16,17 +16,17 @@ function FuncComponent(props) {
 
     return () => {
       console.log('before unmount and before 2+ render func component');
-    }
+    };
   });
 
   const handleClick = () => {
     setClicks(clicks + 1);
 
     // setClicks((clicks) => clicks + 1);
-  }
+  };
 
   return (
-    <div>
+    <div className={styles.container}>
       <h1>FuncComponent</h1>
       <p>test is {test}</p>
       <p>test2 is{test2}</p>

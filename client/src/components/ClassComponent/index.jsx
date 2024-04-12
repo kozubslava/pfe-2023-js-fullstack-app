@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styles from './ClassComponent.module.scss';
 
 class ClassComponent extends Component {
   constructor(props) {
@@ -50,7 +51,7 @@ class ClassComponent extends Component {
     const { clicks } = this.state;
 
     return (
-      <div>
+      <div className={styles.container} >
         <h1>ClassComponent</h1>
         <p>test is {test}</p>
         <p>test2 is{test2}</p>
