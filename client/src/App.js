@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import ClassComponent from './components/ClassComponent';
+import FuncComponent from './components/FuncComponent';
 
 function App() {
+  const [isVisible, setIsVisible] = useState(true);
+
+  const x = 1;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <p>Components is currently {isVisible ? 'visible' : 'hidden'}</p>
+      {isVisible && (
+        <ClassComponent test='test prop' test2={isVisible ? x : -x} isOn />
+      )}
+      {isVisible && (
+        <FuncComponent test='test prop' test2={isVisible ? x : -x} isOn />
+      )}
     </div>
   );
 }
