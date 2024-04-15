@@ -46,6 +46,16 @@ const Header = (props) => {
             Registration
           </NavLink>
         </li>
+        <li>
+          <NavLink
+            exact
+            to='/users'
+            className={styles.link}
+            activeClassName={styles.activeLink}
+          >
+            Active users
+          </NavLink>
+        </li>
       </ul>
     </header>
   );
