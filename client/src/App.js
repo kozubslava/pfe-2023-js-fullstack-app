@@ -1,7 +1,7 @@
 import { Switch, Route } from 'react-router-dom';
 import HomePage from './pages/Home';
-import AboutPage from './pages/About';
 import ProfilePage from './pages/Profile';
+import RegistrationPage from './pages/Registration';
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <Switch>
         <Route exact path='/' component={HomePage} />
         <Route path='/profile' component={ProfilePage} />
-        <Route path='/about' component={AboutPage} />
+        <Route path='/registration' component={RegistrationPage} />
       </Switch>
     </>
   );
