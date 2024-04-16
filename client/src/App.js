@@ -16,7 +16,7 @@ const userMockData = {
 };
 
 function App() {
-  const [user, setUser] = useState(userMockData);
+  const [user, setUser] = useState(null);
 
   return (
     <UserContext.Provider value={[user, setUser]}>
