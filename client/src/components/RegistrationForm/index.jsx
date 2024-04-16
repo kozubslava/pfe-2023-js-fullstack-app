@@ -1,6 +1,8 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import cx from 'classnames';
 import { USER_REGISTRATION_SCHEMA } from '../../validation/userValidation';
+import styles from './RegistrationForm.module.scss';
 
 const initialValues = {
   firstName: 'User',
@@ -33,48 +35,47 @@ const RegistrationForm = (props) => {
       onSubmit={handleSubmit}
       validationSchema={USER_REGISTRATION_SCHEMA}
     >
-      <Form>
-        <div>
-          <label htmlFor='firstName'>First name:</label>
-          <Field type='text' name='firstName' id='firstName' />
-          <ErrorMessage name='firstName' />
+      <Form className={styles.form}>
+        <div className={styles.inputContainer} >
+          <label htmlFor='firstName' className={styles.label}>First name:</label>
+          <Field type='text' name='firstName' id='firstName' className={styles.input} />
         </div>
-        <div>
-          <label htmlFor='lastName'>Last name:</label>
-          <Field type='text' name='lastName' id='lastName' />
-          <ErrorMessage name='lastName' />
+        <ErrorMessage name='firstName' component='div' className={styles.error} />
+        <div className={styles.inputContainer} >
+          <label htmlFor='lastName' className={styles.label}>Last name:</label>
+          <Field type='text' name='lastName' id='lastName' className={styles.input} />
         </div>
-        <div>
-          <label htmlFor='email'>Email:</label>
-          <Field type='email' name='email' id='email' />
-          <ErrorMessage name='email' />
+        <ErrorMessage name='lastName' component='div' className={styles.error} />
+        <div className={styles.inputContainer} >
+          <label htmlFor='email' className={styles.label}>Email:</label>
+          <Field type='email' name='email' id='email' className={styles.input} />
         </div>
-        <div>
-          <label htmlFor='password'>Password:</label>
-          <Field type='password' name='password' id='password' />
-          <ErrorMessage name='password' />
+        <ErrorMessage name='email' component='div' className={styles.error} />
+        <div className={styles.inputContainer} >
+          <label htmlFor='password' className={styles.label}>Password:</label>
+          <Field type='password' name='password' id='password' className={styles.input} />
         </div>
-        <div>
-          <label htmlFor='passwordRepeat'>Repeat Password:</label>
-          <Field type='password' name='passwordRepeat' id='passwordRepeat' />
-          <ErrorMessage name='passwordRepeat' />
+        <ErrorMessage name='password' component='div' className={styles.error} />
+        <div className={styles.inputContainer} >
+          <label htmlFor='passwordRepeat' className={styles.label}>Repeat Password:</label>
+          <Field type='password' name='passwordRepeat' id='passwordRepeat' className={styles.input} />
         </div>
-        <fieldset>
-          <legend>Gender: </legend>
-          <div>
-            <label htmlFor='male'>Male :</label>
+        <ErrorMessage name='passwordRepeat' component='div' className={styles.error} />
+        <fieldset className={styles.genderContainer} >
+          <legend className={styles.genderHeading}>Gender: </legend>
+          <div className={styles.radioContainer} >
             <Field type='radio' name='gender' id='male' value='male' />
-            <ErrorMessage name='gender' />
+            <label htmlFor='male' className={cx(styles.label, styles.radioLabel)}>Male</label>
           </div>
-          <div>
-            <label htmlFor='female'>Female :</label>
+          <div className={styles.radioContainer} >
             <Field type='radio' name='gender' id='female' value='female' />
-            <ErrorMessage name='gender' />
+            <label htmlFor='female'  className={cx(styles.label, styles.radioLabel)}>Female</label>
           </div>
+          <ErrorMessage name='gender' component='div' className={styles.error} />
         </fieldset>
-        <div>
-          <button type='submit'>Register</button>
-          <button type='reset'>Reset fields</button>
+        <div className={styles.btnContainer}>
+          <button type='submit' className={styles.btn}>Register</button>
+          <button type='reset' className={styles.btn}>Reset fields</button>
         </div>
       </Form>
     </Formik>
