@@ -7,7 +7,8 @@ const UserProfile = ({ user }) => {
 
   return (
     <article className={styles.container}>
-      <h2 className={styles.containerHeading}>{fullName}</h2>
+      <h1 className={styles.heading}>User Profile</h1>
+      <h2 className={styles.subheading}>{fullName}</h2>
       <div className={styles.imgWrapper}>
         <img
         className={styles.img}
@@ -29,7 +30,7 @@ const UserProfile = ({ user }) => {
           </li>
           <li className={styles.listItem}>
             <p className={styles.detailText}>
-              <span className={styles.detailTextBold}>Gender</span>: ${user.isMale ? 'male' : 'female'}
+              <span className={styles.detailTextBold}>Gender</span>: {user.isMale ? 'male' : 'female'}
             </p>
           </li>
         </ul>

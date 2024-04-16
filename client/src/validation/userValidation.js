@@ -1,12 +1,27 @@
 import * as yup from 'yup';
 
-const REGISTRATION_NAME_SCHEMA = yup.string().min(2).required();
+const NAME_SCHEMA = yup.string().min(2);
+
+const EMAIL_SCHEMA = yup.string().email();
+
+const PASSWORD_SCHEMA = yup.string().matches(/^[a-zA-Z0-9#$%^&]{8,32}$/, 'password must consists of english letters, numbers and special symbols (#, $, %, ^, &)');
+
+const PASSWORD_REPEAT_SCHEMA = yup.string().oneOf([yup.ref('password'), null], 'password must match');
 
 export const USER_REGISTRATION_SCHEMA = yup.object({
-  firstName: REGISTRATION_NAME_SCHEMA,
-  lastName: REGISTRATION_NAME_SCHEMA,
-  email: yup.string().email().required(),
-  password: yup.string().matches(/^[a-zA-Z0-9#$%^&]{8,32}$/, 'password must consists of english letters, numbers and special symbols (#, $, %, ^, &)').required(),
-  passwordRepeat: yup.string().required().oneOf([yup.ref('password'), null], 'password must match'),
+  firstName: NAME_SCHEMA.required(),
+  lastName: NAME_SCHEMA.required(),
+  email: EMAIL_SCHEMA.required(),
+  password: PASSWORD_SCHEMA.required(),
+  passwordRepeat: PASSWORD_REPEAT_SCHEMA.required(),
+  isMale: yup.bool().required(),
+});
+
+export const USER_UPDATE_SCHEMA = yup.object({
+  firstName: NAME_SCHEMA,
+  lastName: NAME_SCHEMA,
+  email: EMAIL_SCHEMA,
+  password: PASSWORD_SCHEMA,
+  passwordRepeat: PASSWORD_REPEAT_SCHEMA,
   isMale: yup.bool(),
 });

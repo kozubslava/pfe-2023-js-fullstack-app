@@ -1,6 +1,9 @@
+@import '../../styles/templates';
 @import '../../styles/variables';
 
 .container {
+  display: flex;
+  gap: 20px;
   padding: 20px;
   background-color: $main-bg;
   color: white;
@@ -8,7 +11,28 @@
 }
 
 .heading {
-  font-size: 2.5rem;
-  font-weight: bold;
-  text-align: center;
+  @extend %mainHeading;
+  margin-bottom: 20px;
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+}
+
+.btn {
+  @extend %btn;
+}
+
+.section {
+  flex: 5;
+}
+
+.aside,
+.section {
+  border: 2px solid black;
+  border-radius: 20px;
+  padding: 20px;
 }
