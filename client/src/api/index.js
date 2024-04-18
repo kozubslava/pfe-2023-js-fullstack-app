@@ -11,6 +11,9 @@ export async function createUser(userData) {
   return response;
 }
 
+export const login = async (loginData) =>
+  httpClient.post('/auth/login', loginData);
+
 export async function getUser(userId) {
   const response = await httpClient.get(`/users/${userId}`);
 

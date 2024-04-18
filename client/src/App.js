@@ -5,6 +5,7 @@ import ProfilePage from './pages/Profile';
 import RegistrationPage from './pages/Registration';
 import UserContext from './contexts/userContext';
 import UsersPage from './pages/Users';
+import LoginPage from './pages/Login';
 
 const userMockData = {
   id: 1,
@@ -24,6 +25,7 @@ function App() {
         <Route exact path='/' component={HomePage} />
         <Route path='/profile' component={ProfilePage} />
         <Route path='/registration' component={RegistrationPage} />
+        <Route path='/login' component={LoginPage} />
         <Route path='/users' component={UsersPage} />
       </Switch>
     </UserContext.Provider>

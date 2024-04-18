@@ -49,6 +49,16 @@ const Header = (props) => {
         <li>
           <NavLink
             exact
+            to='/login'
+            className={styles.link}
+            activeClassName={styles.activeLink}
+          >
+            Login
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            exact
             to='/users'
             className={styles.link}
             activeClassName={styles.activeLink}
