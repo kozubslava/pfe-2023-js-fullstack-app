@@ -14,7 +14,7 @@ export const USER_REGISTRATION_SCHEMA = yup.object({
   email: EMAIL_SCHEMA.required(),
   password: PASSWORD_SCHEMA.required(),
   passwordRepeat: PASSWORD_REPEAT_SCHEMA.required(),
-  isMale: yup.bool().required(),
+  isMale: yup.bool(),
 });
 
 export const USER_UPDATE_SCHEMA = yup.object({

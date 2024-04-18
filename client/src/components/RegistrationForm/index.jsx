@@ -44,7 +44,7 @@ const RegistrationForm = (props) => {
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmit}
-      // validationSchema={USER_REGISTRATION_SCHEMA}
+      validationSchema={USER_REGISTRATION_SCHEMA}
     >
       <Form className={styles.form}>
         <div className={styles.inputContainer}>
