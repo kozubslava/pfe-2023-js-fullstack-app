@@ -5,8 +5,8 @@ const httpClient = axios.create({
 });
 
 // функція яка робить POST запит на сервер
-export async function createUser(userData) {
-  const response = await httpClient.post('/users', userData);
+export async function registration(userData) {
+  const response = await httpClient.post('/auth/registration', userData);
 
   return response;
 }

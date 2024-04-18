@@ -1,17 +1,17 @@
 import React, { useContext } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import cx from 'classnames';
-import { createUser } from '../../api';
+import { registration } from '../../api';
 import { USER_REGISTRATION_SCHEMA } from '../../validation/userValidation';
 import styles from './RegistrationForm.module.scss';
 import UserContext from '../../contexts/userContext';
 
 const initialValues = {
-  firstName: 'User',
-  lastName: 'Userenko',
-  email: 'user@user.com',
-  password: '1234Test',
-  passwordRepeat: '1234Test',
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  passwordRepeat: '',
   // imgSrc: '',
   gender: 'male',
 };
@@ -19,7 +19,7 @@ const initialValues = {
 const RegistrationForm = (props) => {
   const [user, setUser] = useContext(UserContext);
 
-  const handleSubmit = (values, formikBag) => {
+  const handleSubmit = async (values, formikBag) => {
     const { gender, ...restUser } = values;
     console.log('test');
 
@@ -29,13 +29,10 @@ const RegistrationForm = (props) => {
     };
 
     // запит на сервер
-    createUser(newUserData).then((response) => {
-      // відповідь з серверу
-      console.log(response.data.data);
+    const response = await registration(newUserData);
 
-      // записуємо поверненого з серверу користувача у стейт
-      setUser(response.data.data);
-    });
+    // записуємо поверненого з серверу користувача у стейт
+    setUser(response.data.data);
 
     formikBag.resetForm();
   };
