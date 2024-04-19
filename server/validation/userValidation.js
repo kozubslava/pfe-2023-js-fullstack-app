@@ -1,4 +1,4 @@
-import * as yup from 'yup';
+const yup = require('yup');
 
 const NAME_SCHEMA = yup.string().min(2);
 
@@ -8,7 +8,7 @@ const PASSWORD_SCHEMA = yup.string().matches(/^[a-zA-Z0-9#$%^&]{4,32}$/, 'passwo
 
 const PASSWORD_REPEAT_SCHEMA = yup.string().oneOf([yup.ref('password'), null], 'password must match');
 
-export const USER_REGISTRATION_SCHEMA = yup.object({
+module.exports.USER_REGISTRATION_SCHEMA = yup.object({
   firstName: NAME_SCHEMA.required(),
   lastName: NAME_SCHEMA.required(),
   email: EMAIL_SCHEMA.required(),
@@ -17,12 +17,12 @@ export const USER_REGISTRATION_SCHEMA = yup.object({
   isMale: yup.bool(),
 });
 
-export const USER_LOGIN_SCHEMA = yup.object({
+module.exports.USER_LOGIN_SCHEMA = yup.object({
   email: EMAIL_SCHEMA.required(),
   password: PASSWORD_SCHEMA.required(),
 });
 
-export const USER_UPDATE_SCHEMA = yup.object({
+module.exports.USER_UPDATE_SCHEMA = yup.object({
   firstName: NAME_SCHEMA,
   lastName: NAME_SCHEMA,
   email: EMAIL_SCHEMA,
