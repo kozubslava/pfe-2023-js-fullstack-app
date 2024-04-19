@@ -51,4 +51,23 @@ module.exports.login = async (req, res, next) => {
   }
 };
 
-// 3. - ???
+// 3. - оновлення сессії
+module.exports.refresh = async (req, res, next) => {
+  try {
+    // з фронта нам надсилають айдішник користувача, сессію якого треба оновити
+    const {
+      body: { userId },
+    } = req;
+
+    const user = await User.findById(userId);
+
+    if(!user) {
+      throw new Error('User not found');
+    }
+
+    const userWithoutPassword = prepareUser(user);
+    res.status(201).send({ data: userWithoutPassword });
+  } catch (error) {
+    next(error);
+  }
+};

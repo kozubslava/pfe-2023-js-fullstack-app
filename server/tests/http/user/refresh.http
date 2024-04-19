@@ -1,0 +1,6 @@
+POST http://localhost:5000/auth/refresh
+Content-Type: application/json
+
+{
+  "userId": "66215c77dd55b11c1c508e7c"
+}

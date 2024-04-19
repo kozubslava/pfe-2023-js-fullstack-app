@@ -14,6 +14,9 @@ export async function registration(userData) {
 export const login = async (loginData) =>
   httpClient.post('/auth/login', loginData);
 
+export const refresh = async (userId) =>
+  httpClient.post('/auth/refresh', { userId });
+
 export async function getUser(userId) {
   const response = await httpClient.get(`/users/${userId}`);
 

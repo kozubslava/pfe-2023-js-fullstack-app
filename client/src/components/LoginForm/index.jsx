@@ -20,6 +20,9 @@ const LoginForm = (props) => {
 
     setUser(response.data.data);
 
+    // записуємо айді користувача у localStorage
+    window.localStorage.setItem('token', response.data.data._id);
+
     formikBag.resetForm();
   };
 

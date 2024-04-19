@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import HomePage from './pages/Home';
 import ProfilePage from './pages/Profile';
@@ -6,18 +6,23 @@ import RegistrationPage from './pages/Registration';
 import UserContext from './contexts/userContext';
 import UsersPage from './pages/Users';
 import LoginPage from './pages/Login';
-
-const userMockData = {
-  id: 1,
-  firstName: 'User',
-  lastName: 'Userenko',
-  email: 'user@user.com',
-  password: '1234test',
-  isMale: true,
-};
+import { refresh } from './api';
 
 function App() {
   const [user, setUser] = useState(null);
+
+  // спроба виконання рефреш - запиту
+  useEffect(() => {
+    const token = window.localStorage.getItem('token');
+
+    // якщо токен існує то робимо запит на рефреш даних користувача
+    if (token) {
+      refresh(token).then((response) => {
+        // отриманого користувача зберігаємо у стейт
+        setUser(response.data.data);
+      });
+    }
+  }, []);
 
   return (
     <UserContext.Provider value={[user, setUser]}>

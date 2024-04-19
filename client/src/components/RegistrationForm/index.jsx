@@ -34,6 +34,9 @@ const RegistrationForm = (props) => {
     // записуємо поверненого з серверу користувача у стейт
     setUser(response.data.data);
 
+    // записуємо айді користувача у localStorage
+    window.localStorage.setItem('token', response.data.data._id);
+
     formikBag.resetForm();
   };
 
