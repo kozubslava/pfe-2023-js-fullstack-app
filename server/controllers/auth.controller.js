@@ -8,10 +8,8 @@ module.exports.registration = async (req, res, next) => {
     const { body } = req;
     const user = await User.create(body);
 
-    // const userWithoutPassword = prepareUser(user);
-    // res.status(201).send({ data: userWithoutPassword });
-
-    res.status(201).send({ data: user });
+    const userWithoutPassword = prepareUser(user);
+    res.status(201).send({ data: userWithoutPassword });
   } catch (error) {
     next(error);
   }
@@ -28,6 +26,9 @@ module.exports.login = async (req, res, next) => {
     // 1. знайти користувача
     const user = await User.findOne({ email });
 
+    // одразу повертає чистий js об'єкт замість монгусівського документу
+    // const user = await User.findOne({ email }).lean();
+
     // 1.5 якщо не знайшли користувача то кидаємо помилку
     if (!user) {
       // 404
@@ -43,10 +44,8 @@ module.exports.login = async (req, res, next) => {
     }
 
     // 3. надсилаємо дані про користувача на фронт БЕЗ ПАРОЛЮ
-    // const userWithoutPassword = prepareUser(user);
-    // res.status(201).send({ data: userWithoutPassword });
-
-    res.status(201).send({ data: user });
+    const userWithoutPassword = prepareUser(user);
+    res.status(201).send({ data: userWithoutPassword });
   } catch (error) {
     next(error);
   }
