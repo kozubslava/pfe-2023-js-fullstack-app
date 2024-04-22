@@ -17,7 +17,7 @@ const initialValues = {
 };
 
 const RegistrationForm = (props) => {
-  const [user, setUser] = useContext(UserContext);
+  const [_, setUser] = useContext(UserContext);
 
   const handleSubmit = async (values, formikBag) => {
     const { gender, ...restUser } = values;
@@ -29,14 +29,11 @@ const RegistrationForm = (props) => {
     };
 
     // запит на сервер
-    const response = await registration(newUserData);
+    const { data: {data: { user }} } = await registration(newUserData);
 
     // записуємо поверненого з серверу користувача у стейт
-    setUser(response.data.data);
-
-    // записуємо айді користувача у localStorage
-    window.localStorage.setItem('token', response.data.data._id);
-
+    setUser(user);
+    
     formikBag.resetForm();
   };
 

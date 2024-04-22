@@ -13,13 +13,13 @@ function App() {
 
   // спроба виконання рефреш - запиту
   useEffect(() => {
-    const token = window.localStorage.getItem('token');
+    const token = window.localStorage.getItem('REFRESH_TOKEN');
 
     // якщо токен існує то робимо запит на рефреш даних користувача
     if (token) {
       refresh(token).then((response) => {
         // отриманого користувача зберігаємо у стейт
-        setUser(response.data.data);
+        setUser(response.data.data.user);
       });
     }
   }, []);

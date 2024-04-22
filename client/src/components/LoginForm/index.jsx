@@ -16,12 +16,9 @@ const LoginForm = (props) => {
 
   const handleSubmit = async (values, formikBag) => {
 
-    const response = await login(values);
+    const {data: {data: {user}}} = await login(values);
 
-    setUser(response.data.data);
-
-    // записуємо айді користувача у localStorage
-    window.localStorage.setItem('token', response.data.data._id);
+    setUser(user);
 
     formikBag.resetForm();
   };
