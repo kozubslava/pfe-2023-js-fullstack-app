@@ -8,8 +8,12 @@ const jwtVerify = promisify(jwt.verify);
 const tokenConfig = {
   access: {
     secret: 'secret-12345',
-    expiresIn: '1d'
-  }
+    expiresIn: '30s'
+  },
+  refresh: {
+    secret: 'sekugfr43litgh4379rg287r54g47823eg79e2g37230g4237g378efe8whdd',
+    expiresIn: '14d'
+  },
 }
 
 /**
@@ -38,3 +42,8 @@ const verifyToken = (token, { secret }) => jwtVerify(token, secret);
 module.exports.createAccessToken = (payload) => createToken(payload, tokenConfig.access);
 
 module.exports.verifyAccessToken = (token) => verifyToken(token, tokenConfig.access);
+
+// refreshToken - одноразовий токен оновлення, існує для отримання свіжого accessToken
+module.exports.createRefreshToken = (payload) => createToken(payload, tokenConfig.refresh);
+
+module.exports.verifyRefreshToken = (token) => verifyToken(token, tokenConfig.refresh);

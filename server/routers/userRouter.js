@@ -1,5 +1,6 @@
 const userRouter = require('express').Router();
 const UserController = require('../controllers/user.controller');
+const { checkAccessToken } = require('../middlewares/token.mw');
 const { validateUserUpdate } = require('../middlewares/user.mw');
 
 userRouter
@@ -10,7 +11,7 @@ userRouter
 userRouter
   .route('/:userId')
   .get(UserController.findUser)
-  .put(validateUserUpdate, UserController.updateUser)
-  .delete(UserController.deleteUser);
+  .put(checkAccessToken, validateUserUpdate, UserController.updateUser)
+  .delete(checkAccessToken, UserController.deleteUser);
 
 module.exports = userRouter;

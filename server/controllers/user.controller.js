@@ -39,7 +39,12 @@ module.exports.updateUser = async (req, res, next) => {
     const {
       params: { userId },
       body,
+      tokenData: { userId: tokenUserId },
     } = req;
+
+    if (userId !== tokenUserId) {
+      throw new Error('Cant change other users');
+    }
 
     const user = await User.findByIdAndUpdate(userId, body, { new: true });
 
@@ -54,7 +59,7 @@ module.exports.deleteUser = async (req, res, next) => {
     const {
       params: { userId },
     } = req;
-    
+
     const user = await User.findByIdAndDelete(userId);
 
     res.status(200).send({ data: user });
