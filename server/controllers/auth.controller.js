@@ -1,10 +1,6 @@
 const bcrypt = require('bcrypt');
-const { promisify } = require('util');
-const jwt = require('jsonwebtoken');
-const { User, RefreshToken } = require('../models');
+const { User } = require('../models');
 const AuthService = require('../services/auth.service');
-
-const jwtVerify = promisify(jwt.verify);
 
 // 1. - реєстрація користувача
 module.exports.registration = async (req, res, next) => {
