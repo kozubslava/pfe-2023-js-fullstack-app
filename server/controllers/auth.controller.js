@@ -59,20 +59,7 @@ module.exports.login = async (req, res, next) => {
 // 3. - оновлення сессії
 module.exports.refresh = async (req, res, next) => {
   try {
-    // з фронта нам надсилають токен користувача, сессію якого треба оновити
-    const {
-      body: { token },
-    } = req;
-
-    // перевіряємо токен на валідність
-    const { userId } = await jwtVerify(token, 'secret-12345');
-
-    // перевіряємо що токен зроблений нашим сервером
-    const tokenInstanse = await RefreshToken.findOne({ token, userId });
-
-    if (!tokenInstanse) {
-      throw new Error('Token not found');
-    }
+    const { tokenInstanse } = req;
 
     const sessionData = await AuthService.refreshSession(tokenInstanse);
 
