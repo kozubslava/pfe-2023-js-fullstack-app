@@ -2,10 +2,8 @@ const bcrypt = require('bcrypt');
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 const { User, RefreshToken } = require('../models');
-const { prepareUser } = require('../utils/userUtils');
+const AuthService = require('../services/auth.service');
 
-
-const jwtSign = promisify(jwt.sign);
 const jwtVerify = promisify(jwt.verify);
 
 // 1. - реєстрація користувача
@@ -14,21 +12,9 @@ module.exports.registration = async (req, res, next) => {
     const { body } = req;
     const user = await User.create(body);
 
-    const userWithoutPassword = prepareUser(user);
+    const sessionData = await AuthService.createSession(user);
 
-    // генеруємо токен для користувача
-    const token = await jwtSign(
-      {
-        userId: user._id,
-      },
-      'secret-12345',
-      { expiresIn: '1d' }
-    );
-
-    // зберігаємо токен у БД
-    await RefreshToken.create({ userId: user._id, token });
-
-    res.status(201).send({ data: { user: userWithoutPassword, token } });
+    res.status(201).send({ data: sessionData });
   } catch (error) {
     next(error);
   }
@@ -62,21 +48,9 @@ module.exports.login = async (req, res, next) => {
       throw new Error('user with this data not found');
     }
 
-    // 3. генеруємо токен для користувача
-    const token = await jwtSign(
-      {
-        userId: user._id,
-      },
-      'secret-12345',
-      { expiresIn: '1d' }
-    );
+    const sessionData = await AuthService.createSession(user);
 
-    // зберігаємо токен у БД
-    await RefreshToken.create({ userId: user._id, token });
-
-    // 4. надсилаємо дані про користувача на фронт БЕЗ ПАРОЛЮ
-    const userWithoutPassword = prepareUser(user);
-    res.status(201).send({ data: { user: userWithoutPassword, token } });
+    res.status(201).send({ data: sessionData });
   } catch (error) {
     next(error);
   }
@@ -94,33 +68,15 @@ module.exports.refresh = async (req, res, next) => {
     const { userId } = await jwtVerify(token, 'secret-12345');
 
     // перевіряємо що токен зроблений нашим сервером
-    const tokenInstanse = await RefreshToken.findOne({token});
+    const tokenInstanse = await RefreshToken.findOne({ token, userId });
 
     if (!tokenInstanse) {
       throw new Error('Token not found');
     }
 
-    const user = await User.findById(tokenInstanse.userId);
+    const sessionData = await AuthService.refreshSession(tokenInstanse);
 
-    if (!user) {
-      throw new Error('User not found');
-    }
-
-    const newToken = await jwtSign(
-      {
-        userId: user._id,
-      },
-      'secret-12345',
-      { expiresIn: '1d' }
-    );
-
-    // міняємо запис зі старим токеном у БД на новий
-    await RefreshToken.findOneAndUpdate({token}, {token: newToken});
-
-    const userWithoutPassword = prepareUser(user);
-    res
-      .status(201)
-      .send({ data: { user: userWithoutPassword, token: newToken } });
+    res.status(201).send({ data: sessionData });
   } catch (error) {
     next(error);
   }
