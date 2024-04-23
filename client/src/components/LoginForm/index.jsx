@@ -12,14 +12,22 @@ const initialValues = {
 };
 
 const LoginForm = (props) => {
-  const [ _ , setUser] = useContext(UserContext);
+  const [ { isLoading, error } , dispatch] = useContext(UserContext);
 
   const handleSubmit = async (values, formikBag) => {
 
-    const {data: {data: {user}}} = await login(values);
+    // запам'ятовуємо у стані що робимо запит на сервер 
+    dispatch({ type: 'userRequest'});
 
-    setUser(user);
-
+    try {
+      const {data: {data: {user}}} = await login(values);
+      // при успішному запиту зберігаємо юзера
+      dispatch({type: 'userSuccess', user});
+    } catch (error) {
+      // при неуспішному запиту зберігаємо помилку
+      dispatch({type: 'userError', error});
+    }
+    
     formikBag.resetForm();
   };
 

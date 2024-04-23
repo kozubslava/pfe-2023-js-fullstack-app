@@ -16,7 +16,7 @@ const initialValues = {
 };
 
 const UpdateUserForm = (props) => {
-  const [user, setUser] = useContext(UserContext);
+  const [{ user }, dispatch] = useContext(UserContext);
 
   const handleSubmit = (values, formikBag) => {
     const updatedUserFields = {};
@@ -31,9 +31,13 @@ const UpdateUserForm = (props) => {
 
     console.log(updatedUserFields);
 
-    setUser({
-      ...user,
-      ...updatedUserFields
+    // TODO переробити на запит на сервер
+    dispatch({
+      type: 'userSuccess',
+      user: {
+        ...user,
+        ...updatedUserFields,
+      },
     });
   };
 

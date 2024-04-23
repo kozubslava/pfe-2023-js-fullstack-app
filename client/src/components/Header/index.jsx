@@ -5,14 +5,14 @@ import UserContext from '../../contexts/userContext';
 import { logout } from '../../api';
 
 const Header = (props) => {
-  const [user, setUser] = useContext(UserContext);
+  const [{ user }, dispatch] = useContext(UserContext);
 
   const handleLogout = () => {
     // видаляємо токен з локалСтораджу
     logout();
 
     // видаляємо користувача зі стейту
-    setUser(null);
+    dispatch({type: 'logout'});
   };
 
   return (

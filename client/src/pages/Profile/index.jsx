@@ -9,15 +9,16 @@ import UpdateUserForm from '../../components/formComponents/UpdateUserForm';
 
 const ProfilePage = (props) => {
   const [isProfileUpdating, setIsProfileUpdating] = useState(false);
-  const [user, setUser ] = useContext(UserContext);
+  const [{ user }, dispatch] = useContext(UserContext);
   const history = useHistory();
 
   const handleDeleteProfile = () => {
+    // TODO переробити на запит на сервер
     // видаляємо дані про користувача
-    setUser(null);
+    dispatch({ type: 'logout' });
     // автоматично перенести на головну сторінку
     history.replace('/');
-  }
+  };
 
   return (
     <>

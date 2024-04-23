@@ -17,22 +17,32 @@ const initialValues = {
 };
 
 const RegistrationForm = (props) => {
-  const [_, setUser] = useContext(UserContext);
+  const [_, dispatch] = useContext(UserContext);
 
   const handleSubmit = async (values, formikBag) => {
     const { gender, ...restUser } = values;
-    console.log('test');
 
     const newUserData = {
       ...restUser,
       isMale: gender === 'male',
     };
 
-    // запит на сервер
-    const { data: {data: { user }} } = await registration(newUserData);
+    // запам'ятовуємо у стані що робимо запит на сервер
+    dispatch({ type: 'userRequest' });
 
-    // записуємо поверненого з серверу користувача у стейт
-    setUser(user);
+    try {
+      // запит на сервер
+      const {
+        data: {
+          data: { user },
+        },
+      } = await registration(newUserData);
+      // при успішному запиту зберігаємо юзера
+      dispatch({ type: 'userSuccess', user });
+    } catch (error) {
+      // при неуспішному запиту зберігаємо помилку
+      dispatch({ type: 'userError', error });
+    }
     
     formikBag.resetForm();
   };
