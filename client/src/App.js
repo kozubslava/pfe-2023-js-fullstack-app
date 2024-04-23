@@ -8,6 +8,7 @@ import UsersPage from './pages/Users';
 import LoginPage from './pages/Login';
 import { refresh } from './api';
 import CONSTANTS from './constants';
+import PrivateRoute from './components/PrivateRoute';
 
 const initialState = {
   user: null,
@@ -87,7 +88,7 @@ function App() {
     <UserContext.Provider value={[userState, dispatch]}>
       <Switch>
         <Route exact path='/' component={HomePage} />
-        <Route path='/profile' component={ProfilePage} />
+        <PrivateRoute path='/profile' component={ProfilePage} />
         <Route path='/registration' component={RegistrationPage} />
         <Route path='/login' component={LoginPage} />
         <Route path='/users' component={UsersPage} />
