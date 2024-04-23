@@ -1,15 +1,42 @@
 import axios from 'axios';
+import { checkToken } from '../utils/jwtUtils';
 
 const httpClient = axios.create({
   baseURL: 'http://localhost:5000',
 });
 
-let accessTokenInMemory  = null;
+let accessTokenInMemory = null;
 
 // Додати перехоплювач запиту
 httpClient.interceptors.request.use(
-  function (config) {
+  async function (config) {
     // Зробіть що-небудь перед надсиланням запиту
+
+    const refreshTokenInLS = window.localStorage.getItem('REFRESH_TOKEN');
+
+    const isAccessValid = checkToken(accessTokenInMemory);
+    const isRefreshValid = checkToken(refreshTokenInLS);
+
+    if(isAccessValid) {
+      config.headers.Authorization = `Bearer ${accessTokenInMemory}`;
+    } else if (isRefreshValid) {
+      const {
+        data: {
+          data: { tokenPair },
+        },
+      } = await axios.post(`http://localhost:5000/auth/refresh`, {
+        token: refreshTokenInLS,
+      });
+
+      accessTokenInMemory = tokenPair.accessToken;
+      window.localStorage.setItem('REFRESH_TOKEN', tokenPair.refreshToken);
+
+      config.headers.Authorization = `Bearer ${accessTokenInMemory}`;
+    } else {
+      accessTokenInMemory = null;
+      window.localStorage.removeItem('REFRESH_TOKEN');
+    }
+    
     return config;
   },
   function (error) {
