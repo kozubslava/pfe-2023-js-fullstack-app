@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { checkToken } from '../utils/jwtUtils';
+import CONSTANTS from '../constants';
 
 const httpClient = axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: CONSTANTS.SERVER_URL,
 });
 
 let accessTokenInMemory = null;
@@ -12,7 +13,7 @@ httpClient.interceptors.request.use(
   async function (config) {
     // Зробіть що-небудь перед надсиланням запиту
 
-    const refreshTokenInLS = window.localStorage.getItem('REFRESH_TOKEN');
+    const refreshTokenInLS = window.localStorage.getItem(CONSTANTS.REFRESH_TOKEN);
 
     const isAccessValid = checkToken(accessTokenInMemory);
     const isRefreshValid = checkToken(refreshTokenInLS);
@@ -24,17 +25,17 @@ httpClient.interceptors.request.use(
         data: {
           data: { tokenPair },
         },
-      } = await axios.post(`http://localhost:5000/auth/refresh`, {
+      } = await axios.post(`${CONSTANTS.SERVER_URL}/auth/refresh`, {
         token: refreshTokenInLS,
       });
 
       accessTokenInMemory = tokenPair.accessToken;
-      window.localStorage.setItem('REFRESH_TOKEN', tokenPair.refreshToken);
+      window.localStorage.setItem(CONSTANTS.REFRESH_TOKEN, tokenPair.refreshToken);
 
       config.headers.Authorization = `Bearer ${accessTokenInMemory}`;
     } else {
       accessTokenInMemory = null;
-      window.localStorage.removeItem('REFRESH_TOKEN');
+      window.localStorage.removeItem(CONSTANTS.REFRESH_TOKEN);
     }
     
     return config;
@@ -62,7 +63,7 @@ httpClient.interceptors.response.use(
       } = response;
 
       // зберігаємо токени
-      window.localStorage.setItem('REFRESH_TOKEN', refreshToken);
+      window.localStorage.setItem(CONSTANTS.REFRESH_TOKEN, refreshToken);
       accessTokenInMemory = accessToken;
     }
 

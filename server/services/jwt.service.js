@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
+const CONSTANTS = require('../constants');
 
 // промісіфіковані версіі функцій ї бібілотеки
 const jwtSign = promisify(jwt.sign);
@@ -7,12 +8,12 @@ const jwtVerify = promisify(jwt.verify);
 
 const tokenConfig = {
   access: {
-    secret: 'secret-12345',
-    expiresIn: '30s'
+    secret: CONSTANTS.ACCESS_TOKEN_SECRET,
+    expiresIn: CONSTANTS.ACCESS_TOKEN_EXPIRES_IN
   },
   refresh: {
-    secret: 'sekugfr43litgh4379rg287r54g47823eg79e2g37230g4237g378efe8whdd',
-    expiresIn: '14d'
+    secret: CONSTANTS.REFRESH_TOKEN_SECRET,
+    expiresIn: CONSTANTS.REFRESH_TOKEN_EXPIRES_IN
   },
 }
 
