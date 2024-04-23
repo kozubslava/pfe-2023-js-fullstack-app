@@ -13,6 +13,9 @@ httpClient.interceptors.request.use(
   async function (config) {
     // Зробіть що-небудь перед надсиланням запиту
 
+    // код нижче виконувати тільки на маршрутах не пов'язаних з отриаманням токенів
+    if(config.url.includes('/auth')) return config;
+
     const refreshTokenInLS = window.localStorage.getItem(CONSTANTS.REFRESH_TOKEN);
 
     const isAccessValid = checkToken(accessTokenInMemory);
