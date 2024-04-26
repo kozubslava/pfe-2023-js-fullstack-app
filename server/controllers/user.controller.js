@@ -16,7 +16,10 @@ module.exports.findUser = async (req, res, next) => {
     const {
       params: { userId },
     } = req;
-    const user = await User.findOne({ _id: userId });
+    const user = await User.findOne({ _id: userId }).select('text').populate({
+      path: 'User',
+      select: 'text'
+    });
 
     res.status(200).send({ data: user });
   } catch (error) {
