@@ -1,0 +1,53 @@
+.chatArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  color: white;
+  background-color: midnightblue;
+
+  // &NoChat {
+  //   justify-content: center;
+  // }
+}
+
+.chatAreaNoChat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  color: white;
+  background-color: midnightblue;
+  justify-content: center;
+}
+
+.chatHeader {
+  background-color: steelblue;
+  margin-bottom: 20px;
+  font-weight: bold;
+  padding: 10px 20px;
+}
+
+.messagesWrapper {
+  padding: 0 20px;
+}
+
+.messages {
+  border-radius: 10px;
+  background-color: steelblue;
+  width: 40%;
+  padding: 10px 10px;
+}
+
+.author {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.selectChatMsg {
+  font-size: 2em;
+  align-self: center;
+  border-radius: 10px;
+  background-color: steelblue;
+  padding: 5px 10px;
+}

@@ -1,0 +1,21 @@
+.chatList {
+  flex: 1;
+  background-color: steelblue;
+  color: white;
+}
+
+.chatItem {
+  padding: 10px;
+  &:hover {
+    cursor: pointer;
+    background-color: dodgerblue;
+  }
+}
+
+.chatHeader {
+  font-weight: bold;
+}
+
+.lastMessage {
+  color: lightgray;
+}
