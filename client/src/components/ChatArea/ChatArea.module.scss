@@ -22,7 +22,7 @@
 }
 
 .chatHeader {
-  background-color: steelblue;
+  background-color: darkslategray;
   margin-bottom: 20px;
   font-weight: bold;
   padding: 10px 20px;
@@ -32,11 +32,25 @@
   padding: 0 20px;
 }
 
-.messages {
+.messageList {
+  display: flex;
+  flex-direction: column;
+}
+
+.messageItem {
   border-radius: 10px;
-  background-color: steelblue;
+  background-color: darkslategray;
   width: 40%;
   padding: 10px 10px;
+
+  & + .messageItem {
+    margin-top: 20px;
+  }
+
+  &.own {
+    background-color: cornflowerblue;
+    align-self: flex-end;
+  }
 }
 
 .author {
@@ -48,6 +62,6 @@
   font-size: 2em;
   align-self: center;
   border-radius: 10px;
-  background-color: steelblue;
+  background-color: darkslategray;
   padding: 5px 10px;
 }

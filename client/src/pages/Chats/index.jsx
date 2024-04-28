@@ -26,7 +26,7 @@ function ChatsPage() {
       <div className={styles.asideMainWrapper}>
         <aside className={styles.chatListWrapper}>
           {/* <button>Add Chat</button> */}
-          <ChatList chats={chats} setChat={setChat} />
+          <ChatList chats={chats} chatData={[chat, setChat]} />
         </aside>
         <main className={styles.chatAreaWrapper}>
           <ChatArea chat={chat} />

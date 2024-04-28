@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import classNames from 'classnames';
 import styles from './ChatArea.module.scss';
+import UserContext from '../../contexts/userContext';
 
 function ChatArea({ chat }) {
+  const [{ user }, dispatch] = useContext(UserContext);
+
   if (!chat)
     return (
       <article className={styles.chatAreaNoChat}>
@@ -16,13 +20,19 @@ function ChatArea({ chat }) {
         <p>users: {chat.users.length}</p>
       </header>
       <section className={styles.messagesWrapper}>
-        <ul>
-          {chat.messages.map((m) => (
-            <li key={m._id} className={styles.messages}>
-              <h3 className={styles.author}>{m.author?.firstName}</h3>
-              <p className={styles.text}>{m.text}</p>
-            </li>
-          ))}
+        <ul className={styles.messageList}>
+          {chat.messages.map((m) => {
+            const styleMessageItem = classNames(styles.messageItem, {
+              [styles.own]: m.author?._id === user?._id,
+            });
+
+            return (
+              <li key={m._id} className={styleMessageItem}>
+                <h3 className={styles.author}>{m.author?.firstName}</h3>
+                <p className={styles.text}>{m.text}</p>
+              </li>
+            );
+          })}
         </ul>
       </section>
     </article>

@@ -1,6 +1,6 @@
 .chatList {
   flex: 1;
-  background-color: steelblue;
+  background-color: darkslategray;
   color: white;
 }
 
@@ -8,7 +8,10 @@
   padding: 10px;
   &:hover {
     cursor: pointer;
-    background-color: dodgerblue;
+    background-color: slategrey;
+  }
+  &.active {
+    background-color: cornflowerblue;
   }
 }
 
@@ -18,4 +21,7 @@
 
 .lastMessage {
   color: lightgray;
+  // white-space: nowrap;
+  // overflow: hidden;
+  // text-overflow: ellipsis;
 }
