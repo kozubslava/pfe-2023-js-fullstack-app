@@ -1,0 +1,118 @@
+.chatArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  color: white;
+  background-color: midnightblue;
+
+  // &NoChat {
+  //   justify-content: center;
+  // }
+}
+
+.chatAreaNoChat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  color: white;
+  background-color: midnightblue;
+  justify-content: center;
+}
+
+.chatHeader {
+  background-color: darkslategray;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  min-height: 60px;
+
+  color: lightgray;
+}
+
+.chatName {
+  color: white;
+  font-weight: bold;
+}
+
+.messagesWrapper {
+  flex: 1;
+  padding: 0 20px;
+}
+
+.messageList {
+  display: flex;
+  flex-direction: column;
+}
+
+.messageItem {
+  display: flex;
+  align-items: center;
+  width: 40%;
+
+  & + .messageItem {
+    margin-top: 20px;
+  }
+
+  &.own {
+    align-self: flex-end;
+  }
+}
+
+.textSection {
+  flex: 1;
+  border-radius: 10px;
+  background-color: darkslategray;
+  padding: 10px 10px;
+
+  .own & {
+    background-color: cornflowerblue;
+    align-self: flex-end;
+  }
+}
+
+.author {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.selectChatMsg {
+  font-size: 2em;
+  align-self: center;
+  border-radius: 10px;
+  background-color: darkslategray;
+  padding: 5px 10px;
+}
+
+.inputArea {
+  display: flex;
+  padding: 5px;
+  background-color: darkslategray;
+}
+
+.messageInput {
+  flex: 1;
+  color: white;
+  background-color: darkslategray;
+  font-size: 1.5rem;
+  border: 0;
+  padding: 10px 5px;
+
+  overflow: hidden;
+  resize: none;
+  max-width: 100%;
+
+  &::placeholder {
+    color: lightgrey;
+  }
+}
+
+.messageSendBtn {
+  font-size: 1.5rem;
+  background-color: cornflowerblue;
+  color: white;
+  font-weight: bold;
+  border: 0;
+  border-radius: 15px;
+  padding: 5px 10px;
+}

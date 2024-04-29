@@ -10,6 +10,7 @@ import { refresh } from './api';
 import CONSTANTS from './constants';
 import PrivateRoute from './components/PrivateRoute';
 import PublicOnlyRoute from './components/PublicOnlyRoute';
+import ChatsPage from './pages/Chats';
 
 const initialState = {
   user: null,
@@ -90,6 +91,7 @@ function App() {
       <Switch>
         <Route exact path='/' component={HomePage} />
         <PrivateRoute path='/profile' component={ProfilePage} />
+        <PrivateRoute path='/chats' component={ChatsPage} />
         <PublicOnlyRoute path='/registration' component={RegistrationPage} />
         <PublicOnlyRoute path='/login' component={LoginPage} />
         <Route path='/users' component={UsersPage} />

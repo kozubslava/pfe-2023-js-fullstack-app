@@ -14,14 +14,14 @@ httpClient.interceptors.request.use(
     // Зробіть що-небудь перед надсиланням запиту
 
     // код нижче виконувати тільки на маршрутах не пов'язаних з отриаманням токенів
-    if(config.url.includes('/auth')) return config;
+    if (config.url.includes('/auth')) return config;
 
     const refreshTokenInLS = window.localStorage.getItem(CONSTANTS.REFRESH_TOKEN);
 
     const isAccessValid = checkToken(accessTokenInMemory);
     const isRefreshValid = checkToken(refreshTokenInLS);
 
-    if(isAccessValid) {
+    if (isAccessValid) {
       config.headers.Authorization = `Bearer ${accessTokenInMemory}`;
     } else if (isRefreshValid) {
       const {
@@ -40,7 +40,7 @@ httpClient.interceptors.request.use(
       accessTokenInMemory = null;
       window.localStorage.removeItem(CONSTANTS.REFRESH_TOKEN);
     }
-    
+
     return config;
   },
   function (error) {
@@ -86,11 +86,9 @@ export async function registration(userData) {
   return response;
 }
 
-export const login = async (loginData) =>
-  httpClient.post('/auth/login', loginData);
+export const login = async (loginData) => httpClient.post('/auth/login', loginData);
 
-export const refresh = async (token) =>
-  httpClient.post('/auth/refresh', { token });
+export const refresh = async (token) => httpClient.post('/auth/refresh', { token });
 
 export const logout = () => {
   window.localStorage.removeItem('token');
@@ -115,7 +113,16 @@ export async function updateUser(userId, userData) {
 }
 
 export async function deleteUser(userId) {
-  const response = await axios.delete(`/users/${userId}`);
+  const response = await httpClient.delete(`/users/${userId}`);
+  return response;
+}
 
+export async function getChats(userId) {
+  const response = await httpClient.get(`/users/${userId}/chats`);
+  return response;
+}
+
+export async function getChat(chatId) {
+  const response = await httpClient.get(`/chats/${chatId}`);
   return response;
 }

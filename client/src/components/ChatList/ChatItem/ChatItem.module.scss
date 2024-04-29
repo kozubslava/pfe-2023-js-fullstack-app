@@ -1,0 +1,26 @@
+.chatItem {
+  padding: 10px;
+  &:hover {
+    cursor: pointer;
+    background-color: slategrey;
+  }
+  &.active {
+    background-color: cornflowerblue;
+  }
+}
+
+.chatHeader {
+  font-weight: bold;
+  padding-bottom: 5px;
+}
+
+.lastMessage {
+  color: lightgray;
+  white-space: nowrap; //TODO not working with flex as aspected
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chatInfo {
+  display: flex;
+}
