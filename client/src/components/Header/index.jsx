@@ -12,7 +12,7 @@ const Header = (props) => {
     logout();
 
     // видаляємо користувача зі стейту
-    dispatch({type: 'logout'});
+    dispatch({ type: 'logout' });
   };
 
   return (
@@ -50,6 +50,18 @@ const Header = (props) => {
             Active users
           </NavLink>
         </li>
+        {user && (
+          <li>
+            <NavLink
+              exact
+              to='/chats'
+              className={styles.link}
+              activeClassName={styles.activeLink}
+            >
+              Chats
+            </NavLink>
+          </li>
+        )}
         {user ? (
           <li>
             <button className={styles.link} onClick={handleLogout}>

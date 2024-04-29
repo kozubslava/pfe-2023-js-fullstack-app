@@ -30,7 +30,13 @@ module.exports.findChatsOfUser = async (req, res, next) => {
     const {
       params: { userId },
     } = req;
-    const chats = await Chat.find({ users: userId });
+    const chats = await Chat.find({ users: userId })
+      .select('messages users name')
+      .populate({
+        path: 'messages',
+        populate: 'author',
+      })
+      .populate('users');
     res.status(200).send({ data: chats });
   } catch (error) {
     next(error);
@@ -46,7 +52,10 @@ module.exports.getChat = async (req, res, next) => {
 
     const chats = await Chat.findById(chatId)
       .select('messages users name')
-      .populate('messages')
+      .populate({
+        path: 'messages',
+        populate: 'author',
+      })
       .populate('users');
 
     res.status(200).send({ data: chats });
@@ -86,7 +95,7 @@ module.exports.addUserToChat = async (req, res, next) => {
 
     const chat = await Chat.findOneAndUpdate(
       { _id: chatId },
-      { $addToSet: { users: users} },
+      { $addToSet: { users: users } },
       { new: true }
     ).populate('users');
 
