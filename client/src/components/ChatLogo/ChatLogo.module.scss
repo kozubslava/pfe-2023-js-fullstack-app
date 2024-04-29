@@ -1,0 +1,18 @@
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-right: 10px;
+  background-color: coral;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+  font-weight: bold;
+
+  //TODO not working coz of modele unic names
+  // .own & {
+  //   display: none;
+  // }
+}

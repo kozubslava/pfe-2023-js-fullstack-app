@@ -2,9 +2,12 @@ import React, { useContext } from 'react';
 import classNames from 'classnames';
 import styles from './ChatArea.module.scss';
 import UserContext from '../../contexts/userContext';
+import ChatLogo from '../ChatLogo';
 
 function ChatArea({ chat }) {
   const [{ user }, dispatch] = useContext(UserContext);
+
+  const inputPlaceholder = 'Enter your text';
 
   if (!chat)
     return (
@@ -28,15 +31,27 @@ function ChatArea({ chat }) {
 
             return (
               <li key={m._id} className={styleMessageItem}>
-                <h3 className={styles.author}>{m.author?.firstName}</h3>
-                <p className={styles.text}>{m.text}</p>
+                <ChatLogo chat={{ name: m.author?.firstName }} />
+                <div className={styles.textSection}>
+                  <h3 className={styles.author}>{m.author?.firstName}</h3>
+                  <p className={styles.text}>{m.text}</p>
+                </div>
               </li>
             );
           })}
         </ul>
       </section>
+      <section className={styles.inputArea}>
+        <input
+          className={styles.messageInput}
+          type='text'
+          placeholder={inputPlaceholder}
+          autoFocus
+        />
+        <button className={styles.messageSendBtn}>Send</button>
+      </section>
     </article>
   );
-}
+} //textbox
 
 export default ChatArea;

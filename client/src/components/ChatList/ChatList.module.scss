@@ -3,25 +3,3 @@
   background-color: darkslategray;
   color: white;
 }
-
-.chatItem {
-  padding: 10px;
-  &:hover {
-    cursor: pointer;
-    background-color: slategrey;
-  }
-  &.active {
-    background-color: cornflowerblue;
-  }
-}
-
-.chatHeader {
-  font-weight: bold;
-}
-
-.lastMessage {
-  color: lightgray;
-  // white-space: nowrap;
-  // overflow: hidden;
-  // text-overflow: ellipsis;
-}
