@@ -1,23 +1,22 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import styles from './ChatArea.module.scss';
-import UserContext from '../../contexts/userContext';
 import ChatLogo from '../ChatLogo';
 
-function ChatArea({ chat }) {
-  const [{ user }, dispatch] = useContext(UserContext);
-
+function ChatArea({ chat, userId }) {
   const inputPlaceholder = 'Enter your text';
+
+  const chatAreaClassNames = classNames(styles.chatArea, {[styles.chatAreaNoChat]: !chat});
 
   if (!chat)
     return (
-      <article className={styles.chatAreaNoChat}>
-        <p className={styles.selectChatMsg}>Select chat to start.</p>
+      <article className={chatAreaClassNames}>
+        <h2 className={styles.selectChatMsg}>Select chat to start.</h2>
       </article>
     );
 
   return (
-    <article className={styles.chatArea}>
+    <article className={chatAreaClassNames}>
       <header className={styles.chatHeader}>
         <h2 className={styles.chatName}>{chat.name}</h2>
         <p>users: {chat.users.length}</p>
@@ -26,7 +25,7 @@ function ChatArea({ chat }) {
         <ul className={styles.messageList}>
           {chat.messages.map((m) => {
             const styleMessageItem = classNames(styles.messageItem, {
-              [styles.own]: m.author?._id === user?._id,
+            [styles.own]: m.author?._id === userId,
             });
 
             return (

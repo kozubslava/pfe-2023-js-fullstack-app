@@ -10,13 +10,14 @@ const clickHandler = (setChat, chatId) => {
 
 function ChatItem({
   chat: { _id, isPrivate, name, messages, coverImage: imgUrl },
-  chatData: [chat, setChat],
+  chatId,
+  setChat
 }) {
   const lastMsg = messages.slice(-1)[0];
-  const { author: { firstName, lastName } = {}, text } = lastMsg || {};
+  const { author: { firstName, lastName }, text } = lastMsg || { author: {}};
 
   const chatItemStyle = classNames(styles.chatItem, {
-    [styles.active]: _id === chat?._id,
+    [styles.active]: _id === chatId,
   });
 
   return (

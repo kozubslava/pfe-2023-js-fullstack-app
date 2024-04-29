@@ -7,7 +7,12 @@ import ChatArea from '../../components/ChatArea';
 import styles from './Chats.module.scss';
 
 function ChatsPage() {
-  const [{ user }, dispatch] = useContext(UserContext);
+  const [
+    {
+      user: { _id: userId },
+    },
+    dispatch,
+  ] = useContext(UserContext);
 
   const [chats, setChats] = useState([]);
   const [chat, setChat] = useState();
@@ -15,7 +20,7 @@ function ChatsPage() {
   // const [error, setError] = useState(null);
 
   useEffect(() => {
-    getChats(user._id).then((res) => {
+    getChats(userId).then((res) => {
       setChats(res.data.data);
     });
   }, []);
@@ -26,10 +31,10 @@ function ChatsPage() {
       <div className={styles.asideMainWrapper}>
         <aside className={styles.chatListWrapper}>
           {/* <button>Add Chat</button> */}
-          <ChatList chats={chats} chatData={[chat, setChat]} />
+          <ChatList chats={chats} chatId={chat?._id} setChat={setChat} />
         </aside>
         <main className={styles.chatAreaWrapper}>
-          <ChatArea chat={chat} />
+          <ChatArea chat={chat} userId={userId} />
         </main>
       </div>
     </>
